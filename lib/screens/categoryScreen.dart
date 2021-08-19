@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import './dummy_data.dart';
-import './category_item.dart';
+import '../dummy_data.dart';
+import '../widgets/category_item.dart';
 
 class CategoriesScreen extends StatelessWidget {
   @override
@@ -15,7 +15,11 @@ class CategoriesScreen extends StatelessWidget {
         children: DUMMY_CATEGORIES
             //return the widget categoryitem for rendering
             .map(
-              (catData) => CategoryItem(catData.title, catData.color),
+              (catData) => CategoryItem(
+                catData.id,
+                catData.title,
+                catData.color,
+              ),
             )
             .toList(),
         //for max width next to each other
