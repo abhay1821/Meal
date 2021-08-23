@@ -35,6 +35,7 @@ class CategoryItem extends StatelessWidget {
         padding: const EdgeInsets.all(15),
         child: Text(
           title,
+          // ignore: deprecated_member_use
           style: Theme.of(context).textTheme.title,
         ),
         decoration: BoxDecoration(

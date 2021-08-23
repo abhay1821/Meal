@@ -1,19 +1,24 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_complete_guide/models/meal.dart';
+import '../models/meal.dart';
+import '../screens/meal_detail_screen.dart';
 
 class MealItem extends StatelessWidget {
+  final String id;
   final String title;
   final String imageUrl;
   final int duration;
   final Complexity complexity;
   final Affordability affordability;
+  final Function removeItem;
 
   MealItem({
+    @required this.id,
     @required this.title,
     @required this.imageUrl,
     @required this.duration,
     @required this.complexity,
     @required this.affordability,
+    @required this.removeItem,
   });
 
   String get complexityText {
@@ -32,7 +37,7 @@ class MealItem extends StatelessWidget {
     }
   }
 
-  String get AffordabilityText {
+  String get affordabilityText {
     switch (affordability) {
       case Affordability.Affordable:
         return 'Affordable';
@@ -48,11 +53,26 @@ class MealItem extends StatelessWidget {
     }
   }
 
-  void selectMeal() {}
+  void selectMeal(BuildContext context) {
+    //for screen change
+    Navigator.of(context)
+        .pushNamed(
+      MealDetailScreen.routeName,
+      arguments: id,
+    )
+        .then((result) {
+      if (result != null) {
+        removeItem(result);
+      }
+    });
+    //for future argument after the route is finished Meal detail screen
+  }
+
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: selectMeal,
+      //we need to pass the context so we ()=>
+      onTap: () => selectMeal(context),
       child: Card(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(15),
@@ -76,6 +96,7 @@ class MealItem extends StatelessWidget {
                     fit: BoxFit.cover,
                   ),
                 ),
+                //controls the child of stack for position
                 Positioned(
                   bottom: 20,
                   right: 10,
@@ -132,7 +153,7 @@ class MealItem extends StatelessWidget {
                         SizedBox(
                           width: 6,
                         ),
-                        Text(AffordabilityText),
+                        Text(affordabilityText),
                       ],
                     ),
                   ],
