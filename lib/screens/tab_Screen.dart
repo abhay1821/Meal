@@ -1,26 +1,48 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_complete_guide/models/meal.dart';
 import '../widgets/main_drawer.dart';
 import './favScreen.dart';
 import './categoryScreen.dart';
+import '../models/meal.dart';
 
 class TabsScreen extends StatefulWidget {
+  final List<Meal> favMeals;
+  TabsScreen(this.favMeals);
   @override
   _TabsScreenState createState() => _TabsScreenState();
 }
 
 class _TabsScreenState extends State<TabsScreen> {
-  final List<Map<String, Object>> _pages = [
-    {
-      'page': CategoriesScreen(),
-      'title': 'Categories',
-    },
-    {
-      'page': FavScreen(),
-      'title': 'Your Favourites',
-    },
-  ];
+  List<Map<String, Object>> _pages;
+  // final List<Map<String, Object>> _pages = [
+  //   {
+  //     'page': CategoriesScreen(),
+  //     'title': 'Categories',
+  //   },
+  //   {
+  //     //we cannot pass widget favmeals due to
+  //     // build method it can be used in init state
+  //     'page': FavScreen(widget.favMeals),
+  //     'title': 'Your Favourites',
+  //   },
+  // ];
   //for the Tabs no
   int _selectedPageIndex = 0;
+  @override
+  void initState() {
+    _pages = [
+      {
+        'page': CategoriesScreen(),
+        'title': 'Categories',
+      },
+      {
+        //it can be executed before build
+        'page': FavScreen(widget.favMeals),
+        'title': 'Your Favourites',
+      },
+    ];
+    super.initState();
+  }
 
   void _selectPage(int index) {
     setState(() {

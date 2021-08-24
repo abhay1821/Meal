@@ -23,6 +23,8 @@ class _MyAppState extends State<MyApp> {
   };
   //avaialable meals after filter
   List<Meal> _availableMeals = DUMMY_MEALS;
+  //empty list for fav meals
+  List<Meal> _favMeals = [];
   void _setFilters(Map<String, bool> filterData) {
     print('running');
     setState(() {
@@ -43,6 +45,27 @@ class _MyAppState extends State<MyApp> {
         return true;
       }).toList();
     });
+  }
+
+  void _toggleFav(String mealId) {
+    //for checking whether it is part of
+    final existingINdex = _favMeals.indexWhere((meal) => meal.id == mealId);
+    if (existingINdex >= 0) {
+      setState(() {
+        _favMeals.removeAt(existingINdex);
+      });
+    } else {
+      setState(() {
+        _favMeals.add(
+          DUMMY_MEALS.firstWhere((meal) => meal.id == mealId),
+        );
+      });
+    }
+  }
+
+  bool _isMealFav(String id) {
+    //returns true if any item is found
+    return _favMeals.any((meal) => meal.id == id);
   }
 
   @override
@@ -72,9 +95,10 @@ class _MyAppState extends State<MyApp> {
       ),
       // home: CategoriesScreen(),
       routes: {
-        '/': (ctx) => TabsScreen(),
+        '/': (ctx) => TabsScreen(_favMeals),
         // CategoryMealScreen.routeName: (ctx) => CategoryMealScreen(),
-        MealDetailScreen.routeName: (ctx) => MealDetailScreen(),
+        MealDetailScreen.routeName: (ctx) =>
+            MealDetailScreen(_toggleFav, _isMealFav),
         FilterScreen.routeName: (ctx) => FilterScreen(_filters, _setFilters),
       },
       //if the route is not mentioned above so by default it will use it
