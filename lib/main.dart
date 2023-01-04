@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import './dummy_data.dart';
+import 'package:flutter_complete_guide/utils/theme.dart';
+import 'utils/dummy_data.dart';
 import './models/meal.dart';
 import './screens/fliter_screen.dart';
 import './screens/tab_Screen.dart';
@@ -21,12 +22,9 @@ class _MyAppState extends State<MyApp> {
     'vegan': false,
     'vegetarian': false,
   };
-  //avaialable meals after filter
   List<Meal> _availableMeals = DUMMY_MEALS;
-  //empty list for fav meals
   List<Meal> _favMeals = [];
   void _setFilters(Map<String, bool> filterData) {
-    print('running');
     setState(() {
       _filters = filterData;
       _availableMeals = DUMMY_MEALS.where((meal) {
@@ -48,7 +46,6 @@ class _MyAppState extends State<MyApp> {
   }
 
   void _toggleFav(String mealId) {
-    //for checking whether it is part of
     final existingINdex = _favMeals.indexWhere((meal) => meal.id == mealId);
     if (existingINdex >= 0) {
       setState(() {
@@ -64,7 +61,6 @@ class _MyAppState extends State<MyApp> {
   }
 
   bool _isMealFav(String id) {
-    //returns true if any item is found
     return _favMeals.any((meal) => meal.id == id);
   }
 
@@ -73,33 +69,11 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'DeliMeals',
-      theme: ThemeData(
-        primarySwatch: Colors.pink,
-        accentColor: Colors.amber,
-        canvasColor: Color.fromRGBO(255, 254, 229, 1),
-        fontFamily: 'Raleway',
-        textTheme: ThemeData.light().textTheme.copyWith(
-            // ignore: deprecated_member_use
-            body1: TextStyle(
-              color: Color.fromRGBO(20, 51, 51, 1),
-            ),
-            // ignore: deprecated_member_use
-            body2: TextStyle(
-              color: Color.fromRGBO(20, 51, 51, 1),
-            ),
-            // ignore: deprecated_member_use
-            title: TextStyle(
-              fontSize: 20,
-              fontFamily: 'RobotoCondensed',
-              fontWeight: FontWeight.bold,
-            )),
-      ),
-      // home: CategoriesScreen(),
+      theme: AppTheme.appTheme,
+
       routes: {
         '/': (ctx) => TabsScreen(_favMeals),
-        // CategoryMealScreen.routeName: (ctx) => CategoryMealScreen(),
-        MealDetailScreen.routeName: (ctx) =>
-            MealDetailScreen(_toggleFav, _isMealFav),
+        MealDetailScreen.routeName: (ctx) => MealDetailScreen(_toggleFav, _isMealFav),
         FilterScreen.routeName: (ctx) => FilterScreen(_filters, _setFilters),
       },
       //if the route is not mentioned above so by default it will use it

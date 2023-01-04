@@ -52,24 +52,19 @@ class MealItem extends StatelessWidget {
   }
 
   void selectMeal(BuildContext context) {
-    //for screen change
     Navigator.of(context)
         .pushNamed(
       MealDetailScreen.routeName,
       arguments: id,
     )
         .then((result) {
-      if (result != null) {
-        //
-      }
+      if (result != null) {}
     });
-    //for future argument after the route is finished Meal detail screen
   }
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      //we need to pass the context so we ()=>
       onTap: () => selectMeal(context),
       child: Card(
         shape: RoundedRectangleBorder(

@@ -21,7 +21,6 @@ class _FilterScreenState extends State<FilterScreen> {
   initState() {
     _glutenFree = widget.currentFilters['gluten'];
     _lactoseFree = widget.currentFilters['lactose'];
-    print(_lactoseFree);
     _vegetarian = widget.currentFilters['vegetarian'];
     _vegan = widget.currentFilters['vegan'];
     super.initState();

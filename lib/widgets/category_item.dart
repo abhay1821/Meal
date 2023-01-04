@@ -9,7 +9,6 @@ class CategoryItem extends StatelessWidget {
   CategoryItem(this.id, this.title, this.color);
 
   void selectCategory(BuildContext ctx) {
-    //for navigation b/w screens & pushnamed for routes
     Navigator.of(ctx).pushNamed(
       CategoryMealScreen.routeName,
       arguments: {
@@ -17,12 +16,6 @@ class CategoryItem extends StatelessWidget {
         'title': title,
       },
     );
-
-    //since we cannot directly do it so we use route with builder return widget
-    // MaterialPageRoute(
-    //   builder: (_) {
-    //     return CategoryMealScreen(id, title);
-    //   },
   }
 
   @override
@@ -35,8 +28,7 @@ class CategoryItem extends StatelessWidget {
         padding: const EdgeInsets.all(15),
         child: Text(
           title,
-          // ignore: deprecated_member_use
-          style: Theme.of(context).textTheme.title,
+          style: Theme.of(context).textTheme.headline6,
         ),
         decoration: BoxDecoration(
           gradient: LinearGradient(

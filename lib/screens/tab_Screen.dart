@@ -3,7 +3,6 @@ import 'package:flutter_complete_guide/models/meal.dart';
 import '../widgets/main_drawer.dart';
 import './favScreen.dart';
 import './categoryScreen.dart';
-import '../models/meal.dart';
 
 class TabsScreen extends StatefulWidget {
   final List<Meal> favMeals;
@@ -14,19 +13,6 @@ class TabsScreen extends StatefulWidget {
 
 class _TabsScreenState extends State<TabsScreen> {
   List<Map<String, Object>> _pages;
-  // final List<Map<String, Object>> _pages = [
-  //   {
-  //     'page': CategoriesScreen(),
-  //     'title': 'Categories',
-  //   },
-  //   {
-  //     //we cannot pass widget favmeals due to
-  //     // build method it can be used in init state
-  //     'page': FavScreen(widget.favMeals),
-  //     'title': 'Your Favourites',
-  //   },
-  // ];
-  //for the Tabs no
   int _selectedPageIndex = 0;
   @override
   void initState() {
@@ -36,7 +22,6 @@ class _TabsScreenState extends State<TabsScreen> {
         'title': 'Categories',
       },
       {
-        //it can be executed before build
         'page': FavScreen(widget.favMeals),
         'title': 'Your Favourites',
       },
@@ -58,62 +43,39 @@ class _TabsScreenState extends State<TabsScreen> {
       ),
       drawer: MainDrawer(),
       body: _pages[_selectedPageIndex]['page'],
-      bottomNavigationBar: BottomNavigationBar(
-        onTap: _selectPage,
-        backgroundColor: Theme.of(context).primaryColor,
-        unselectedItemColor: Colors.white,
-        selectedItemColor: Theme.of(context).accentColor,
-        currentIndex: _selectedPageIndex,
-        type: BottomNavigationBarType.shifting,
-        items: [
-          BottomNavigationBarItem(
-            backgroundColor: Theme.of(context).primaryColor,
-            icon: Icon(Icons.category),
-            // ignore: deprecated_member_use
-            title: Text('Categories'),
+      bottomNavigationBar: ClipRRect(
+        borderRadius: const BorderRadius.vertical(
+          top: Radius.circular(20),
+        ),
+        child: BottomAppBar(
+          shape: const CircularNotchedRectangle(),
+          notchMargin: 10,
+          child: BottomNavigationBar(
+            onTap: _selectPage,
+            backgroundColor: Theme.of(context).canvasColor,
+            unselectedItemColor: Colors.white,
+            selectedItemColor: Theme.of(context).bottomAppBarColor,
+            currentIndex: _selectedPageIndex,
+            type: BottomNavigationBarType.shifting,
+            items: [
+              BottomNavigationBarItem(
+                backgroundColor: Theme.of(context).primaryColor,
+                icon: Icon(
+                  Icons.category,
+                ),
+                label: 'Categories',
+              ),
+              BottomNavigationBarItem(
+                backgroundColor: Theme.of(context).primaryColor,
+                icon: Icon(
+                  Icons.star,
+                ),
+                label: 'Favourites',
+              ),
+            ],
           ),
-          BottomNavigationBarItem(
-            backgroundColor: Theme.of(context).primaryColor,
-            icon: Icon(
-              Icons.star,
-            ),
-            // ignore: deprecated_member_use
-            title: Text('Favourites'),
-          ),
-        ],
+        ),
       ),
     );
-    // return DefaultTabController(
-    //   length: 2,
-    //   // for default tab view or fav
-    //   // initialIndex: 1,
-    //   child: Scaffold(
-    //     appBar: AppBar(
-    //       title: Text('Meals'),
-    //       bottom: TabBar(
-    //         tabs: <Widget>[
-    //           Tab(
-    //             icon: Icon(
-    //               Icons.category,
-    //             ),
-    //             text: 'Categories',
-    //           ),
-    //           Tab(
-    //             icon: Icon(
-    //               Icons.category,
-    //             ),
-    //             text: 'Favorites',
-    //           ),
-    //         ],
-    //       ),
-    //     ),
-    //     body: TabBarView(
-    //       children: <Widget>[
-    //         CategoriesScreen(),
-    //         FavScreen(),
-    //       ],
-    //     ),
-    //   ),
-    // );
   }
 }

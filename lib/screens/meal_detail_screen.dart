@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../dummy_data.dart';
+import '../utils/dummy_data.dart';
 
 class MealDetailScreen extends StatelessWidget {
   static const routeName = '/meal-detail';
@@ -14,8 +14,7 @@ class MealDetailScreen extends StatelessWidget {
       ),
       child: Text(
         text,
-        // ignore: deprecated_member_use
-        style: Theme.of(context).textTheme.title,
+        style: Theme.of(context).textTheme.headline4,
       ),
     );
   }
@@ -38,7 +37,6 @@ class MealDetailScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final mealId = ModalRoute.of(context).settings.arguments as String;
-    //returns the true or false
     final selectedMeal = DUMMY_MEALS.firstWhere((meal) => meal.id == mealId);
     return Scaffold(
       appBar: AppBar(
@@ -59,6 +57,7 @@ class MealDetailScreen extends StatelessWidget {
             buildContainer(
               ListView.builder(
                 itemBuilder: (ctx, index) => Card(
+                  // ignore: deprecated_member_use
                   color: Theme.of(context).accentColor,
                   child: Padding(
                       padding: EdgeInsets.symmetric(
@@ -72,24 +71,21 @@ class MealDetailScreen extends StatelessWidget {
             ),
             buildSectionTitle(context, 'Steps'),
             buildContainer(
-              ListView.builder(
-                itemBuilder: (ctx, index) => Column(
-                  children: [
-                    ListTile(
-                      leading: CircleAvatar(
-                        child: Text('# ${index + 1}'),
-                      ),
-                      title: Text(
-                        selectedMeal.steps[index],
-                      ),
-                    ),
-                    //for creating horizontal line
-                    Divider()
-                  ],
+              ListView.separated(
+                itemBuilder: (ctx, index) => ListTile(
+                  leading: CircleAvatar(
+                    child: Text('# ${index + 1}'),
+                  ),
+                  title: Text(
+                    selectedMeal.steps[index],
+                  ),
                 ),
+                separatorBuilder: (ctx, index) {
+                  return Divider();
+                },
                 itemCount: selectedMeal.steps.length,
               ),
-            ),
+            )
           ],
         ),
       ),
@@ -98,8 +94,6 @@ class MealDetailScreen extends StatelessWidget {
           isfav(mealId) ? Icons.star : Icons.star_border,
         ),
         onPressed: () => toggleFunction(mealId),
-        //   //for removing the screen on the top of stack
-        //   Navigator.of(context).pop(mealId);
       ),
     );
   }
