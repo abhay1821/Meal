@@ -1,16 +1,23 @@
-# meal
+# Meal App
 
-A new Flutter project.
+# Description
+This application uses dummy data to showcase the Food Categories It has features like drawer with two types Meals and filter . Filter Features add different Filters like vegan , Non-Veg, Flutten Free for filtering the food among the Categories provided. It do also have the features of Adding items to Favourites and show case in the other tab itself.
 
-## Getting Started
 
-This project is a starting point for a Flutter application.
+|[**Working App Video**]()     |
+|------------| 
+|  <img src="https://user-images.githubusercontent.com/55257452/211261585-4a2649b1-b354-4255-95a7-ef27c8af2f88.mp4" width="350"> |
 
-A few resources to get you started if this is your first Flutter project:
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+
+
+
+# Requirements
+
+To get the app build following are the requirements:
+1. Flutter Framework installled with android studio up working properly.
+2. Dependencies as given below:
+     * cupertino_icons: ^0.1.2
+3. sdk: ">=2.1.0 <3.0.0" 
+     
